@@ -1,0 +1,2 @@
+# components
+componets for wxapp
