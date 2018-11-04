@@ -1,0 +1,54 @@
+<import src="../../template/actionSheet/actionSheet.wxml" />
+<!-- <import src="../../template/toast.wxml"/> -->
+<block>
+  <view class="flex-column-center">
+    <view class="input-container">
+      <view class="item-address flex-row-center">
+        <text class="item-label">收货人</text>
+        <input class="label-txt input-name" bindinput="userNameIn" value="{{userName}}" />
+      </view>
+      <view class="item-address flex-row-center">
+        <text class="item-label">联系电话</text>
+        <input class="label-txt" bindinput="phoneInput" maxlength="11" value="{{phone}}" />
+      </view>
+      <view class="item-address flex-row-center">
+        <text class="item-label">选择地区</text>
+        <view class="item-context ellipsis" bindtap='showMenuTap'>{{areaInfo}}</view>
+        <view class="dialog-mask " style="z-index:11;visibility:{{addressMenuIsShow ? 'visible': 'hidden'}}" bindtap="hideCitySelected" />
+        <!--城市三级联动-->
+        <view class="picker-view flex-column-center" animation="{{animationAddressMenu}}" style="visibility:{{addressMenuIsShow ? 'visible':'hidden'}}">
+          <view class="check-box">
+            <text catchtap="cityCancel">取消</text>
+            <text class="float-right" catchtap="citySure">确定</text>
+          </view>
+          <picker-view class="picker" bindchange="cityChange" value="{{selectedCity}}" wx:key="index">
+            <picker-view-column>
+              <view wx:for="{{provinces}}" class="picker-item {{item.disable?'grey':''}}" wx:key="index">
+                {{item.name}}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view wx:for="{{citys}}"  class="picker-item {{item.disable?'grey':''}}" wx:key="">
+                {{item.name}}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view wx:for="{{areas}}" class="picker-item {{item.disable?'grey':''}}" wx:key="">
+                {{item.name}}</view>
+            </picker-view-column>
+          </picker-view>
+        </view>
+      </view>
+      <view class="item-address flex-row-center">
+        <text class="item-label">详细地址</text>
+        <input class="label-txt" bindinput="addressInput" value="{{address}}" placeholder='请填写详细地址' />
+      </view>
+       <!-- <view class="item-address">
+        <text class="item-label">备注</text>
+        <input class="label-txt" bindinput="remarksInput" value="{{remarks}}" /> 
+      </view> -->
+    </view>
+    <button type="primary" size="default" bindtap="submitFn" class="submit-btn {{userNameValidated ? 'done':''}}">
+      <text>保存</text>
+    </button>
+  </view>
+</block>
+<!-- <template is="toast" data="{{showToast,toastImg,toastTxt}}"></template> -->
